@@ -9,38 +9,194 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SavingsRouteImport } from './routes/savings'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as PaymentsRouteImport } from './routes/payments'
+import { Route as InsightsRouteImport } from './routes/insights'
+import { Route as CardsRouteImport } from './routes/cards'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ActionTransferRouteImport } from './routes/action.transfer'
+import { Route as ActionTopupRouteImport } from './routes/action.topup'
+import { Route as ActionPayRouteImport } from './routes/action.pay'
+import { Route as ActionInvestRouteImport } from './routes/action.invest'
 
+const SavingsRoute = SavingsRouteImport.update({
+  id: '/savings',
+  path: '/savings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaymentsRoute = PaymentsRouteImport.update({
+  id: '/payments',
+  path: '/payments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InsightsRoute = InsightsRouteImport.update({
+  id: '/insights',
+  path: '/insights',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CardsRoute = CardsRouteImport.update({
+  id: '/cards',
+  path: '/cards',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ActionTransferRoute = ActionTransferRouteImport.update({
+  id: '/action/transfer',
+  path: '/action/transfer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ActionTopupRoute = ActionTopupRouteImport.update({
+  id: '/action/topup',
+  path: '/action/topup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ActionPayRoute = ActionPayRouteImport.update({
+  id: '/action/pay',
+  path: '/action/pay',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ActionInvestRoute = ActionInvestRouteImport.update({
+  id: '/action/invest',
+  path: '/action/invest',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cards': typeof CardsRoute
+  '/insights': typeof InsightsRoute
+  '/payments': typeof PaymentsRoute
+  '/profile': typeof ProfileRoute
+  '/savings': typeof SavingsRoute
+  '/action/invest': typeof ActionInvestRoute
+  '/action/pay': typeof ActionPayRoute
+  '/action/topup': typeof ActionTopupRoute
+  '/action/transfer': typeof ActionTransferRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cards': typeof CardsRoute
+  '/insights': typeof InsightsRoute
+  '/payments': typeof PaymentsRoute
+  '/profile': typeof ProfileRoute
+  '/savings': typeof SavingsRoute
+  '/action/invest': typeof ActionInvestRoute
+  '/action/pay': typeof ActionPayRoute
+  '/action/topup': typeof ActionTopupRoute
+  '/action/transfer': typeof ActionTransferRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cards': typeof CardsRoute
+  '/insights': typeof InsightsRoute
+  '/payments': typeof PaymentsRoute
+  '/profile': typeof ProfileRoute
+  '/savings': typeof SavingsRoute
+  '/action/invest': typeof ActionInvestRoute
+  '/action/pay': typeof ActionPayRoute
+  '/action/topup': typeof ActionTopupRoute
+  '/action/transfer': typeof ActionTransferRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/cards'
+    | '/insights'
+    | '/payments'
+    | '/profile'
+    | '/savings'
+    | '/action/invest'
+    | '/action/pay'
+    | '/action/topup'
+    | '/action/transfer'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/cards'
+    | '/insights'
+    | '/payments'
+    | '/profile'
+    | '/savings'
+    | '/action/invest'
+    | '/action/pay'
+    | '/action/topup'
+    | '/action/transfer'
+  id:
+    | '__root__'
+    | '/'
+    | '/cards'
+    | '/insights'
+    | '/payments'
+    | '/profile'
+    | '/savings'
+    | '/action/invest'
+    | '/action/pay'
+    | '/action/topup'
+    | '/action/transfer'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CardsRoute: typeof CardsRoute
+  InsightsRoute: typeof InsightsRoute
+  PaymentsRoute: typeof PaymentsRoute
+  ProfileRoute: typeof ProfileRoute
+  SavingsRoute: typeof SavingsRoute
+  ActionInvestRoute: typeof ActionInvestRoute
+  ActionPayRoute: typeof ActionPayRoute
+  ActionTopupRoute: typeof ActionTopupRoute
+  ActionTransferRoute: typeof ActionTransferRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/savings': {
+      id: '/savings'
+      path: '/savings'
+      fullPath: '/savings'
+      preLoaderRoute: typeof SavingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/payments': {
+      id: '/payments'
+      path: '/payments'
+      fullPath: '/payments'
+      preLoaderRoute: typeof PaymentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/insights': {
+      id: '/insights'
+      path: '/insights'
+      fullPath: '/insights'
+      preLoaderRoute: typeof InsightsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cards': {
+      id: '/cards'
+      path: '/cards'
+      fullPath: '/cards'
+      preLoaderRoute: typeof CardsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +204,49 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/action/transfer': {
+      id: '/action/transfer'
+      path: '/action/transfer'
+      fullPath: '/action/transfer'
+      preLoaderRoute: typeof ActionTransferRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/action/topup': {
+      id: '/action/topup'
+      path: '/action/topup'
+      fullPath: '/action/topup'
+      preLoaderRoute: typeof ActionTopupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/action/pay': {
+      id: '/action/pay'
+      path: '/action/pay'
+      fullPath: '/action/pay'
+      preLoaderRoute: typeof ActionPayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/action/invest': {
+      id: '/action/invest'
+      path: '/action/invest'
+      fullPath: '/action/invest'
+      preLoaderRoute: typeof ActionInvestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CardsRoute: CardsRoute,
+  InsightsRoute: InsightsRoute,
+  PaymentsRoute: PaymentsRoute,
+  ProfileRoute: ProfileRoute,
+  SavingsRoute: SavingsRoute,
+  ActionInvestRoute: ActionInvestRoute,
+  ActionPayRoute: ActionPayRoute,
+  ActionTopupRoute: ActionTopupRoute,
+  ActionTransferRoute: ActionTransferRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
