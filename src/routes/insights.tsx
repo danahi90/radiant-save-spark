@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AppShell } from "@/components/layout/AppShell";
 import { TopBar } from "@/components/layout/TopBar";
 import { useApp } from "@/lib/app-state";
-import { getPersona, fmtMoney, dict } from "@/lib/mock-or-i18n";
+import { getPersona, fmtMoney } from "@/lib/mock";
+import { dict } from "@/lib/i18n";
 import { TrendingUp, TrendingDown } from "lucide-react";
 
 export const Route = createFileRoute("/insights")({
@@ -21,7 +22,7 @@ const flow = [
 function InsightsPage() {
   const { t, lang, persona } = useApp();
   const p = getPersona(persona);
-  const total = p.categories.reduce((s, c) => s + c.value, 0);
+  const total = p.categories.reduce((s: number, c: { value: number }) => s + c.value, 0);
   return (
     <AppShell>
       <TopBar />
@@ -70,9 +71,9 @@ function InsightsPage() {
         <div className="glass rounded-3xl p-5">
           <p className="text-sm font-semibold">{t("budgetCategory")}</p>
           <div className="mt-4 flex items-center gap-5">
-            <Donut data={p.categories.map((c) => ({ value: c.value, color: c.color }))} />
+            <Donut data={p.categories.map((c: { value: number; color: string }) => ({ value: c.value, color: c.color }))} />
             <div className="flex-1 space-y-2">
-              {p.categories.map((c) => (
+              {p.categories.map((c: { key: string; value: number; color: string }) => (
                 <div key={c.key} className="flex items-center justify-between text-xs">
                   <span className="flex items-center gap-2">
                     <span className="size-2.5 rounded-full" style={{ background: c.color }} />
