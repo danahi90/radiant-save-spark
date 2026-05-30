@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
-import type { Lang, Persona } from "./i18n";
+import { dict, type Lang, type Persona } from "./i18n";
 
 type Notification = {
   id: string;
@@ -70,12 +70,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       notifications: [...s.notifications, { ...n, id: Math.random().toString(36).slice(2) }].slice(-4),
     })),
     dismiss: (id) => setState((s) => ({ ...s, notifications: s.notifications.filter((x) => x.id !== id) })),
-    t: (key) => {
-      // dynamic import-free: read dict synchronously
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const { dict } = require("./i18n") as typeof import("./i18n");
-      return dict[key][state.lang];
-    },
+    t: (key) => dict[key][state.lang],
   }), [state]);
 
   // Auto-dismiss notifications after 6s
