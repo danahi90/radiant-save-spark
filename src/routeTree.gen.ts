@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WelcomeRouteImport } from './routes/welcome'
 import { Route as SavingsRouteImport } from './routes/savings'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PaymentsRouteImport } from './routes/payments'
@@ -20,6 +21,11 @@ import { Route as ActionTopupRouteImport } from './routes/action.topup'
 import { Route as ActionPayRouteImport } from './routes/action.pay'
 import { Route as ActionInvestRouteImport } from './routes/action.invest'
 
+const WelcomeRoute = WelcomeRouteImport.update({
+  id: '/welcome',
+  path: '/welcome',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SavingsRoute = SavingsRouteImport.update({
   id: '/savings',
   path: '/savings',
@@ -78,6 +84,7 @@ export interface FileRoutesByFullPath {
   '/payments': typeof PaymentsRoute
   '/profile': typeof ProfileRoute
   '/savings': typeof SavingsRoute
+  '/welcome': typeof WelcomeRoute
   '/action/invest': typeof ActionInvestRoute
   '/action/pay': typeof ActionPayRoute
   '/action/topup': typeof ActionTopupRoute
@@ -90,6 +97,7 @@ export interface FileRoutesByTo {
   '/payments': typeof PaymentsRoute
   '/profile': typeof ProfileRoute
   '/savings': typeof SavingsRoute
+  '/welcome': typeof WelcomeRoute
   '/action/invest': typeof ActionInvestRoute
   '/action/pay': typeof ActionPayRoute
   '/action/topup': typeof ActionTopupRoute
@@ -103,6 +111,7 @@ export interface FileRoutesById {
   '/payments': typeof PaymentsRoute
   '/profile': typeof ProfileRoute
   '/savings': typeof SavingsRoute
+  '/welcome': typeof WelcomeRoute
   '/action/invest': typeof ActionInvestRoute
   '/action/pay': typeof ActionPayRoute
   '/action/topup': typeof ActionTopupRoute
@@ -117,6 +126,7 @@ export interface FileRouteTypes {
     | '/payments'
     | '/profile'
     | '/savings'
+    | '/welcome'
     | '/action/invest'
     | '/action/pay'
     | '/action/topup'
@@ -129,6 +139,7 @@ export interface FileRouteTypes {
     | '/payments'
     | '/profile'
     | '/savings'
+    | '/welcome'
     | '/action/invest'
     | '/action/pay'
     | '/action/topup'
@@ -141,6 +152,7 @@ export interface FileRouteTypes {
     | '/payments'
     | '/profile'
     | '/savings'
+    | '/welcome'
     | '/action/invest'
     | '/action/pay'
     | '/action/topup'
@@ -154,6 +166,7 @@ export interface RootRouteChildren {
   PaymentsRoute: typeof PaymentsRoute
   ProfileRoute: typeof ProfileRoute
   SavingsRoute: typeof SavingsRoute
+  WelcomeRoute: typeof WelcomeRoute
   ActionInvestRoute: typeof ActionInvestRoute
   ActionPayRoute: typeof ActionPayRoute
   ActionTopupRoute: typeof ActionTopupRoute
@@ -162,6 +175,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/welcome': {
+      id: '/welcome'
+      path: '/welcome'
+      fullPath: '/welcome'
+      preLoaderRoute: typeof WelcomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/savings': {
       id: '/savings'
       path: '/savings'
@@ -242,6 +262,7 @@ const rootRouteChildren: RootRouteChildren = {
   PaymentsRoute: PaymentsRoute,
   ProfileRoute: ProfileRoute,
   SavingsRoute: SavingsRoute,
+  WelcomeRoute: WelcomeRoute,
   ActionInvestRoute: ActionInvestRoute,
   ActionPayRoute: ActionPayRoute,
   ActionTopupRoute: ActionTopupRoute,
@@ -250,13 +271,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
