@@ -9,6 +9,8 @@ import { useApp } from "@/lib/app-state";
 import { getPersona, fmtMoney } from "@/lib/mock";
 import { Sparkles, TrendingUp, PiggyBank } from "lucide-react";
 
+import { redirect } from "@tanstack/react-router";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -16,6 +18,12 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Your smart bank: see balance, savings, and quick actions." },
     ],
   }),
+  beforeLoad: () => {
+    if (typeof window !== "undefined") {
+      const authed = sessionStorage.getItem("nawa_authed");
+      if (!authed) throw redirect({ to: "/welcome" });
+    }
+  },
   component: Home,
 });
 
