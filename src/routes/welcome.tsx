@@ -39,35 +39,80 @@ function WelcomePage() {
   const [phase, setPhase] = useState<Phase>("splash");
   const [code, setCode] = useState("");
   const [error, setError] = useState(false);
+  const [stuckError, setStuckError] = useState<string | null>(null);
 
-  // Auto-verify when 6 digits entered
+  // Trigger verification when 6 digits entered (no timer here — avoids cleanup race)
   useEffect(() => {
-    if (phase !== "passcode" || code.length !== 6) return;
-    setPhase("verifying");
-    const t = setTimeout(() => {
-      if (code === PASSCODE) {
-        setPhase("entering");
-      } else {
-        setError(true);
-        setCode("");
-        setTimeout(() => setError(false), 900);
-        setPhase("passcode");
-      }
-    }, 1100);
-    return () => clearTimeout(t);
+    if (phase === "passcode" && code.length === 6) {
+      console.log("[auth] 6 digits entered, moving to verifying");
+      setPhase("verifying");
+    }
   }, [code, phase]);
 
-  // After "entering" animation, navigate to app
+  // Run verification timer ONLY while in verifying phase
+  useEffect(() => {
+    if (phase !== "verifying") return;
+    console.log("[auth] verifying passcode…");
+    const t = setTimeout(() => {
+      if (code === PASSCODE) {
+        console.log("[auth] passcode OK → entering");
+        setPhase("entering");
+      } else {
+        console.warn("[auth] wrong passcode");
+        setError(true);
+        setCode("");
+        setPhase("passcode");
+        setTimeout(() => setError(false), 900);
+      }
+    }, 900);
+    // Safety: never let verifying hang
+    const safety = setTimeout(() => {
+      console.error("[auth] verifying timed out — failing gracefully");
+      setStuckError("Verification timed out. Please try again.");
+      setCode("");
+      setPhase("passcode");
+    }, 6000);
+    return () => {
+      clearTimeout(t);
+      clearTimeout(safety);
+    };
+  }, [phase, code]);
+
+  // After "entering" animation, persist auth and navigate to app
   useEffect(() => {
     if (phase !== "entering") return;
-    const t = setTimeout(() => {
+    console.log("[auth] entering app sequence");
+    const navTimer = setTimeout(() => {
       try {
         sessionStorage.setItem("nawa_authed", "1");
-      } catch {}
+        localStorage.setItem("nawa_authed", "1");
+      } catch (e) {
+        console.error("[auth] storage write failed", e);
+      }
+      console.log("[auth] navigating to /");
       navigate({ to: "/" });
     }, 4400);
-    return () => clearTimeout(t);
+    // Safety net: force-navigate if something stalls
+    const safety = setTimeout(() => {
+      console.error("[auth] entering phase stuck — force navigating");
+      try {
+        sessionStorage.setItem("nawa_authed", "1");
+        localStorage.setItem("nawa_authed", "1");
+      } catch {}
+      window.location.href = "/";
+    }, 7000);
+    return () => {
+      clearTimeout(navTimer);
+      clearTimeout(safety);
+    };
   }, [phase, navigate]);
+
+  // Clear stuck error after a moment
+  useEffect(() => {
+    if (!stuckError) return;
+    const t = setTimeout(() => setStuckError(null), 2500);
+    return () => clearTimeout(t);
+  }, [stuckError]);
 
   const press = (d: string) => {
     if (phase !== "passcode") return;
@@ -79,6 +124,14 @@ function WelcomePage() {
   return (
     <div className="relative min-h-screen w-full overflow-hidden text-white" dir="ltr">
       <AuroraBackdrop />
+
+      {stuckError && (
+        <div className="fixed left-1/2 top-6 z-50 -translate-x-1/2 rounded-full border border-rose-400/40 bg-rose-500/15 px-4 py-2 text-xs text-rose-100 backdrop-blur-xl">
+          {stuckError}
+        </div>
+      )}
+
+
 
       <AnimatePresence mode="wait">
         {phase === "splash" && (
