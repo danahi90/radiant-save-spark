@@ -20,7 +20,8 @@ export const Route = createFileRoute("/")({
   }),
   beforeLoad: () => {
     if (typeof window !== "undefined") {
-      const authed = sessionStorage.getItem("nawa_authed");
+      const authed =
+        sessionStorage.getItem("nawa_authed") || localStorage.getItem("nawa_authed");
       if (!authed) throw redirect({ to: "/welcome" });
     }
   },
