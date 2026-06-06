@@ -440,48 +440,148 @@ function BiometricScene({
 /* ───────────────────────── Entering ───────────────────────── */
 
 function EnteringScene() {
+  const messages = useMemo(
+    () => [
+      "Securing your session",
+      "Calibrating your spectrum",
+      "Preparing your experience",
+      "Welcome back, Faisal",
+    ],
+    [],
+  );
+  const [step, setStep] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setStep((s) => (s < messages.length - 1 ? s + 1 : s));
+    }, 950);
+    return () => clearInterval(id);
+  }, [messages.length]);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-      className="relative mx-auto flex min-h-screen max-w-md flex-col items-center justify-center px-6 text-center"
+      exit={{ opacity: 0, filter: "blur(20px)", scale: 1.08 }}
+      transition={{ duration: 0.6 }}
+      className="relative mx-auto flex min-h-screen max-w-md flex-col items-center justify-center overflow-hidden px-6 text-center"
     >
+      {/* Layered light expansions */}
       <motion.div
-        initial={{ scale: 0.4, opacity: 0 }}
-        animate={{ scale: [0.4, 1, 14], opacity: [0, 1, 0] }}
-        transition={{ duration: 2.2, ease: [0.7, 0, 0.84, 0] }}
-        className="absolute h-40 w-40 rounded-full"
+        initial={{ scale: 0.2, opacity: 0 }}
+        animate={{ scale: [0.2, 1.2, 3.5], opacity: [0, 0.9, 0] }}
+        transition={{ duration: 2.4, ease: [0.22, 1, 0.36, 1], times: [0, 0.4, 1] }}
+        className="absolute h-56 w-56 rounded-full"
         style={{
           background:
-            "radial-gradient(circle, rgba(31,231,197,0.8) 0%, rgba(139,109,255,0.4) 45%, transparent 70%)",
-          filter: "blur(8px)",
+            "radial-gradient(circle, rgba(31,231,197,0.85) 0%, rgba(31,231,197,0.25) 40%, transparent 70%)",
+          filter: "blur(10px)",
         }}
       />
       <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8 }}
+        initial={{ scale: 0.4, opacity: 0 }}
+        animate={{ scale: [0.4, 2, 8], opacity: [0, 0.7, 0] }}
+        transition={{ duration: 3, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
+        className="absolute h-56 w-56 rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(139,109,255,0.6) 0%, rgba(139,109,255,0.18) 45%, transparent 75%)",
+          filter: "blur(20px)",
+        }}
+      />
+      <motion.div
+        initial={{ scale: 0.5, opacity: 0 }}
+        animate={{ scale: [0.5, 3, 18], opacity: [0, 0.55, 0] }}
+        transition={{ duration: 3.6, ease: [0.7, 0, 0.84, 0], delay: 1.4 }}
+        className="absolute h-72 w-72 rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(255,255,255,0.55) 0%, rgba(31,231,197,0.2) 40%, transparent 70%)",
+          filter: "blur(30px)",
+        }}
+      />
+
+      {/* Horizon sweep */}
+      <motion.div
+        initial={{ scaleX: 0, opacity: 0 }}
+        animate={{ scaleX: [0, 1, 1], opacity: [0, 1, 0] }}
+        transition={{ duration: 2.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+        className="absolute left-0 right-0 top-1/2 h-px origin-center"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent, rgba(31,231,197,0.9), rgba(139,109,255,0.9), transparent)",
+          boxShadow: "0 0 24px rgba(31,231,197,0.6)",
+        }}
+      />
+
+      {/* Logo with subtle parallax + final dissolve */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.85, filter: "blur(14px)" }}
+        animate={{
+          opacity: [0, 1, 1, 0],
+          scale: [0.85, 1, 1.04, 1.25],
+          filter: ["blur(14px)", "blur(0px)", "blur(0px)", "blur(18px)"],
+        }}
+        transition={{ duration: 4.2, times: [0, 0.25, 0.75, 1], ease: "easeInOut" }}
+        className="relative"
       >
-        <WingLogo size={96} animated={false} />
+        <WingLogo size={104} animated={false} />
       </motion.div>
-      <motion.p
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 0.8 }}
-        className="mt-10 text-sm uppercase tracking-[0.35em] text-white/80"
-      >
-        Preparing your experience…
-      </motion.p>
-      <div className="mt-6 h-px w-48 overflow-hidden bg-white/10">
+
+      {/* Rotating premium loading messages */}
+      <div className="relative mt-12 h-5 w-full">
+        <AnimatePresence mode="wait">
+          <motion.p
+            key={step}
+            initial={{ opacity: 0, y: 8, filter: "blur(6px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            exit={{ opacity: 0, y: -8, filter: "blur(6px)" }}
+            transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute inset-x-0 text-center text-[11px] uppercase tracking-[0.4em] text-white/85"
+          >
+            {messages[step]}
+          </motion.p>
+        </AnimatePresence>
+      </div>
+
+      {/* Progress shimmer */}
+      <div className="relative mt-8 h-px w-56 overflow-hidden bg-white/10">
         <motion.div
           initial={{ x: "-100%" }}
-          animate={{ x: "100%" }}
-          transition={{ duration: 1.8, ease: "easeInOut", repeat: Infinity }}
+          animate={{ x: "200%" }}
+          transition={{ duration: 1.6, ease: "easeInOut", repeat: Infinity }}
           className="h-full w-1/2 bg-gradient-to-r from-transparent via-emerald-300 to-transparent"
         />
       </div>
+
+      {/* Step dots */}
+      <div className="mt-6 flex items-center gap-2">
+        {messages.map((_, i) => (
+          <motion.span
+            key={i}
+            animate={{
+              scale: i <= step ? 1.15 : 1,
+              backgroundColor:
+                i <= step ? "rgba(31,231,197,0.95)" : "rgba(255,255,255,0.18)",
+              boxShadow:
+                i <= step ? "0 0 10px rgba(31,231,197,0.7)" : "0 0 0 transparent",
+            }}
+            transition={{ duration: 0.35 }}
+            className="h-1.5 w-1.5 rounded-full"
+          />
+        ))}
+      </div>
+
+      {/* Final white flash → bleeds into first app screen */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0, 0, 0.95, 0] }}
+        transition={{ duration: 4.2, times: [0, 0.78, 0.92, 1], ease: "easeInOut" }}
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(circle at 50% 50%, rgba(255,255,255,1) 0%, rgba(166,255,233,0.6) 40%, transparent 80%)",
+        }}
+      />
     </motion.div>
   );
 }
