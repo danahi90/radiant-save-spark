@@ -125,6 +125,14 @@ function WelcomePage() {
     <div className="relative min-h-screen w-full overflow-hidden text-white" dir="ltr">
       <AuroraBackdrop />
 
+      {stuckError && (
+        <div className="fixed left-1/2 top-6 z-50 -translate-x-1/2 rounded-full border border-rose-400/40 bg-rose-500/15 px-4 py-2 text-xs text-rose-100 backdrop-blur-xl">
+          {stuckError}
+        </div>
+      )}
+
+
+
       <AnimatePresence mode="wait">
         {phase === "splash" && (
           <SplashScene
