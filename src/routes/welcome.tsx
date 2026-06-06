@@ -340,13 +340,33 @@ function PasscodeScene({
       </motion.div>
 
       {verifying && (
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="mt-6 text-center text-xs uppercase tracking-[0.3em] text-emerald-300/90"
+        <motion.div
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-8 flex flex-col items-center gap-3"
         >
-          Verifying…
-        </motion.p>
+          <div className="relative h-10 w-10">
+            <motion.span
+              className="absolute inset-0 rounded-full border border-emerald-300/30"
+              animate={{ scale: [1, 1.35, 1.6], opacity: [0.7, 0.2, 0] }}
+              transition={{ duration: 1.4, repeat: Infinity, ease: "easeOut" }}
+            />
+            <motion.span
+              className="absolute inset-1.5 rounded-full border-2 border-transparent"
+              style={{
+                borderTopColor: "rgba(31,231,197,0.95)",
+                borderRightColor: "rgba(139,109,255,0.8)",
+              }}
+              animate={{ rotate: 360 }}
+              transition={{ duration: 0.9, repeat: Infinity, ease: "linear" }}
+            />
+            <span className="absolute inset-[14px] rounded-full bg-emerald-300/80 shadow-[0_0_14px_rgba(31,231,197,0.9)]" />
+          </div>
+          <p className="text-[10px] uppercase tracking-[0.4em] text-emerald-200/90">
+            Verifying identity
+          </p>
+        </motion.div>
       )}
       {error && (
         <motion.p
