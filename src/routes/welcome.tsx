@@ -65,7 +65,7 @@ function WelcomePage() {
         sessionStorage.setItem("nawa_authed", "1");
       } catch {}
       navigate({ to: "/" });
-    }, 2400);
+    }, 4400);
     return () => clearTimeout(t);
   }, [phase, navigate]);
 
