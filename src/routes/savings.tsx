@@ -52,7 +52,7 @@ function SavingsDetail() {
       <PageHeader title={t("savingsCard")} back="/cards" />
 
       <section className="px-5 pt-5">
-        <div className="relative overflow-hidden rounded-3xl p-6 bg-gradient-emerald ring-1 ring-[var(--accent)]/30 shadow-glow-emerald animate-pulse-glow">
+        <div className={`relative overflow-hidden rounded-3xl p-6 bg-gradient-emerald ring-1 shadow-glow-emerald animate-pulse-glow transition-all duration-500 ${unlockAt ? "ring-[var(--gold)]/60 shadow-[0_0_50px_-8px_var(--gold)]" : "ring-[var(--accent)]/30"}`}>
           <div className="absolute -right-8 -top-8 size-40 rounded-full bg-[var(--gold)]/25 blur-3xl" />
           <div className="relative flex items-center justify-between">
             <div className="flex items-center gap-2">
