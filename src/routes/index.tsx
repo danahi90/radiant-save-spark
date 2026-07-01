@@ -47,9 +47,9 @@ const containerVariants: Variants = {
 };
 
 function Home() {
-  const { lang, persona, t } = useApp();
+  const { persona, t, lang } = useApp();
   const p = getPersona(persona);
-  const tip = persona === "student" ? t("tipStudent") : t("tipPro");
+
 
   const income = useCountUp(p.income, 1400);
   const saved = useCountUp(p.savedThisMonth, 1600);
