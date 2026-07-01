@@ -70,7 +70,7 @@ export const dict = {
   investNow: { ar: "استثمر الآن", en: "Invest now" },
   riyal: { ar: "ر.س", en: "SAR" },
   unlockReqSent: { ar: "تم إرسال طلب فك القفل ⏳", en: "Unlock request sent ⏳" },
-  unlockCancelled: { ar: "تم إلغاء طلب فك القفل ✅", en: "Unlock request cancelled ✅" },
+  unlockCancelled: { ar: "تمت إعادة تأمين البطاقة بنجاح، ومدخراتك في أمان مستمر.", en: "Card re-secured successfully, your savings remain protected." },
   budgetCategory: { ar: "تصنيف الإنفاق", en: "Spending categories" },
   food: { ar: "طعام", en: "Food" },
   transport: { ar: "مواصلات", en: "Transport" },
