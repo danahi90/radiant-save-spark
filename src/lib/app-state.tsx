@@ -65,10 +65,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
     toggleDetails: () => setState((s) => ({ ...s, detailsShown: !s.detailsShown })),
     requestUnlock: () => setState((s) => ({ ...s, unlockAt: Date.now() + 3 * 60 * 60 * 1000 })),
     cancelUnlock: () => setState((s) => ({ ...s, unlockAt: null })),
-    notify: (n) => setState((s) => ({
-      ...s,
-      notifications: [...s.notifications, { ...n, id: Math.random().toString(36).slice(2) }].slice(-4),
-    })),
+    notify: (n) => {
+      const id = Math.random().toString(36).slice(2);
+      setState((s) => ({
+        ...s,
+        notifications: [...s.notifications, { ...n, id }].slice(-4),
+      }));
+      return id;
+    },
     dismiss: (id) => setState((s) => ({ ...s, notifications: s.notifications.filter((x) => x.id !== id) })),
     t: (key) => dict[key][state.lang],
   }), [state]);
