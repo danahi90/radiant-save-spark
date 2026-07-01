@@ -96,20 +96,9 @@ function Home() {
         </motion.section>
 
         <motion.section variants={sectionVariants} className="mt-5 px-5">
-          <div className="glass relative overflow-hidden rounded-3xl p-4">
-            <div className="absolute -right-8 -top-8 size-32 rounded-full bg-[var(--gold)]/20 blur-2xl" />
-            <div className="relative flex items-start gap-3">
-              <div className="flex size-10 items-center justify-center rounded-2xl bg-[var(--gold)]/15 text-[var(--gold)]">
-                <Sparkles className="size-5" />
-              </div>
-              <div className="flex-1">
-                <p className="text-xs font-semibold text-[var(--gold)]">{t("smartTip")}</p>
-                <p className="mt-1 text-sm leading-snug">{tip}</p>
-              </div>
-              <PiggyBank className="size-5 text-[var(--accent)]" />
-            </div>
-          </div>
+          <SmartInsight />
         </motion.section>
+
 
         <motion.section variants={sectionVariants} className="mt-5 px-5">
           <RecentActivity />
