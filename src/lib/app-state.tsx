@@ -25,7 +25,7 @@ type Ctx = State & {
   toggleDetails: () => void;
   requestUnlock: () => void;
   cancelUnlock: () => void;
-  notify: (n: Omit<Notification, "id">) => void;
+  notify: (n: Omit<Notification, "id">) => string;
   dismiss: (id: string) => void;
   t: (key: import("./i18n").DictKey) => string;
 };
