@@ -4,7 +4,9 @@ import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { useApp } from "@/lib/app-state";
 import { getPersona, fmtMoney, unlockHistory } from "@/lib/mock";
-import { Lock, ShieldCheck, Clock, X, Sparkles } from "lucide-react";
+import { Lock, ShieldCheck, Sparkles } from "lucide-react";
+import { UnlockProcessing } from "@/components/banking/UnlockProcessing";
+
 
 export const Route = createFileRoute("/savings")({
   head: () => ({ meta: [{ title: "Nawa — Savings Card" }] }),
@@ -50,7 +52,7 @@ function SavingsDetail() {
       <PageHeader title={t("savingsCard")} back="/cards" />
 
       <section className="px-5 pt-5">
-        <div className="relative overflow-hidden rounded-3xl p-6 bg-gradient-emerald ring-1 ring-[var(--accent)]/30 shadow-glow-emerald animate-pulse-glow">
+        <div className={`relative overflow-hidden rounded-3xl p-6 bg-gradient-emerald ring-1 shadow-glow-emerald animate-pulse-glow transition-all duration-500 ${unlockAt ? "ring-[var(--gold)]/60 shadow-[0_0_50px_-8px_var(--gold)]" : "ring-[var(--accent)]/30"}`}>
           <div className="absolute -right-8 -top-8 size-40 rounded-full bg-[var(--gold)]/25 blur-3xl" />
           <div className="relative flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -80,30 +82,12 @@ function SavingsDetail() {
       {/* Cooling-off panel */}
       <section className="mt-5 px-5">
         {unlockAt ? (
-          <div className="glass-strong rounded-3xl p-5 ring-1 ring-[var(--warning)]/30">
-            <div className="flex items-center gap-2 text-[var(--warning)]">
-              <Clock className="size-4" />
-              <p className="text-xs font-semibold">{t("unlockIn")}</p>
-            </div>
-            <div className="mt-3 grid grid-cols-3 gap-2 text-center">
-              {[
-                { v: cd?.h ?? 0, l: t("hours") },
-                { v: cd?.m ?? 0, l: t("minutes") },
-                { v: cd?.s ?? 0, l: t("seconds") },
-              ].map((b, i) => (
-                <div key={i} className="rounded-2xl bg-black/30 px-2 py-3 ring-1 ring-white/5">
-                  <p className="text-2xl font-bold tabular-nums text-[var(--gold)]">{String(b.v).padStart(2, "0")}</p>
-                  <p className="mt-0.5 text-[10px] text-muted-foreground">{b.l}</p>
-                </div>
-              ))}
-            </div>
-            <button
-              onClick={onCancel}
-              className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-[var(--destructive)]/15 py-3 text-sm font-semibold text-[var(--destructive)] ring-1 ring-[var(--destructive)]/30 tap-scale"
-            >
-              <X className="size-4" /> {t("cancelRequest")}
-            </button>
-          </div>
+          <UnlockProcessing
+            hours={cd?.h ?? 0}
+            minutes={cd?.m ?? 0}
+            seconds={cd?.s ?? 0}
+            onCancel={onCancel}
+          />
         ) : (
           <button
             onClick={onRequest}
