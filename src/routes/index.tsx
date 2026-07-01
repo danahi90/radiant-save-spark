@@ -9,7 +9,8 @@ import { RecentActivity } from "@/components/banking/RecentActivity";
 import { useApp } from "@/lib/app-state";
 import { getPersona, fmtMoney } from "@/lib/mock";
 import { useCountUp } from "@/lib/useCountUp";
-import { Sparkles, TrendingUp, PiggyBank } from "lucide-react";
+import { TrendingUp } from "lucide-react";
+import { SmartInsight } from "@/components/banking/SmartInsight";
 
 import { redirect } from "@tanstack/react-router";
 
