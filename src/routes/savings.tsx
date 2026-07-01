@@ -49,7 +49,7 @@ function SavingsDetail() {
       dismiss(warningIdRef.current);
       warningIdRef.current = null;
     }
-    notify({ tone: "success", title: t("unlockCancelled"), body: lang === "ar" ? "تظل مدخراتك محمية." : "Your savings stay protected." });
+    notify({ tone: "success", title: t("unlockCancelled"), body: "" });
   };
 
   return (
