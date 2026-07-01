@@ -38,7 +38,7 @@ export const dict = {
   minutes: { ar: "دقائق", en: "minutes" },
   seconds: { ar: "ثوان", en: "seconds" },
   activationHistory: { ar: "سجل التفعيل", en: "Activation history" },
-  coolingNudge: { ar: "تنبيه تهدئة: فك قفل البطاقة الادخارية يستغرق 3 ساعات لمنع الصرف الاندفاعي", en: "Cooling-off: unlocking savings takes 3 hours to prevent impulse spending" },
+  coolingNudge: { ar: "طلب فك قفل البطاقة الادخارية يخضع الآن لفحص أمني ذكي ومكافحة الاحتيال (Fraud Monitor). تستغرق هذه العملية ما يصل إلى 3 ساعات.", en: "Cooling-off: unlocking savings takes 3 hours to prevent impulse spending" },
   cardFrozen: { ar: "تم تجميد البطاقة بنجاح", en: "Card frozen successfully" },
   cardUnfrozen: { ar: "تم إلغاء التجميد", en: "Card unfrozen" },
   amount: { ar: "المبلغ", en: "Amount" },

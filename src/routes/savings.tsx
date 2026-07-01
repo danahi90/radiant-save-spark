@@ -38,7 +38,7 @@ function SavingsDetail() {
     requestUnlock();
     notify({
       tone: "warning",
-      title: lang === "ar" ? "⚠️ تنبيه تهدئة" : "⚠️ Cooling-off alert",
+      title: lang === "ar" ? "⚠️ تنبيه التحقق الأمني" : "⚠️ Cooling-off alert",
       body: t("coolingNudge"),
     });
   };
