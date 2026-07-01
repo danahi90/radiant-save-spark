@@ -103,7 +103,7 @@ function SavingsDetail() {
           </button>
         )}
         <p className="mt-2 px-2 text-[11px] leading-relaxed text-muted-foreground">
-          {t("coolingNudge")}
+          {unlockAt ? t("coolingNudge") : t("lockedSavingsMotivation")}
         </p>
       </section>
 
