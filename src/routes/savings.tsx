@@ -4,7 +4,9 @@ import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { useApp } from "@/lib/app-state";
 import { getPersona, fmtMoney, unlockHistory } from "@/lib/mock";
-import { Lock, ShieldCheck, Clock, X, Sparkles } from "lucide-react";
+import { Lock, ShieldCheck, Sparkles } from "lucide-react";
+import { UnlockProcessing } from "@/components/banking/UnlockProcessing";
+
 
 export const Route = createFileRoute("/savings")({
   head: () => ({ meta: [{ title: "Nawa — Savings Card" }] }),
