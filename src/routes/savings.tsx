@@ -29,14 +29,15 @@ function useCountdown(target: number | null) {
 }
 
 function SavingsDetail() {
-  const { lang, persona, savingsBalance, unlockAt, requestUnlock, cancelUnlock, notify, t } = useApp();
+  const { lang, persona, savingsBalance, unlockAt, requestUnlock, cancelUnlock, notify, dismiss, t } = useApp();
   const p = getPersona(persona);
   const pct = Math.min(100, Math.round((savingsBalance / p.goal) * 100));
   const cd = useCountdown(unlockAt);
+  const warningIdRef = useRef<string | null>(null);
 
   const onRequest = () => {
     requestUnlock();
-    notify({
+    warningIdRef.current = notify({
       tone: "warning",
       title: lang === "ar" ? "⚠️ تنبيه التحقق الأمني" : "⚠️ Cooling-off alert",
       body: t("coolingNudge"),
@@ -44,6 +45,10 @@ function SavingsDetail() {
   };
   const onCancel = () => {
     cancelUnlock();
+    if (warningIdRef.current) {
+      dismiss(warningIdRef.current);
+      warningIdRef.current = null;
+    }
     notify({ tone: "success", title: t("unlockCancelled"), body: lang === "ar" ? "تظل مدخراتك محمية." : "Your savings stay protected." });
   };
 
