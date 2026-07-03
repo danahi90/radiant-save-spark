@@ -16,6 +16,7 @@ type State = {
   persona: Persona;
   frozen: boolean;
   detailsShown: boolean;
+  privacy: boolean;
   unlockAt: number | null; // timestamp when savings unlock
   savingsBalance: number;
   notifications: Notification[];
@@ -26,11 +27,13 @@ type Ctx = State & {
   setPersona: (p: Persona) => void;
   toggleFreeze: () => void;
   toggleDetails: () => void;
+  togglePrivacy: () => void;
   requestUnlock: () => void;
   cancelUnlock: () => void;
   notify: (n: Omit<Notification, "id">) => string;
   dismiss: (id: string) => void;
   t: (key: import("./i18n").DictKey) => string;
+  fmt: (n: number) => string;
 };
 
 const AppCtx = createContext<Ctx | null>(null);
