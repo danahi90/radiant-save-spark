@@ -16,7 +16,7 @@ function PayPage() {
     <ActionFlow
       title={t("payBill")}
       successTitle={t("done")}
-      successBody={sel !== null ? (lang === "ar" ? `تم سداد ${bills[sel][lang]} بمبلغ ${fmt(bills[sel].amount)}` : `Paid ${bills[sel][lang]} — ${fmt(bills[sel].amount)}`) : ""}
+      successBody={sel !== null ? (lang === "ar" ? `تم سداد ${bills[sel][lang]} بمبلغ ${fmtMoney(bills[sel].amount, lang)}` : `Paid ${bills[sel][lang]} — ${fmtMoney(bills[sel].amount, lang)}`) : ""}
     >
       {(next) => (
         <>
@@ -35,7 +35,7 @@ function PayPage() {
                   <p className="text-sm font-medium">{b[lang]}</p>
                   <p className="text-[11px] text-muted-foreground">{lang === "ar" ? "مستحقة" : "Due now"}</p>
                 </div>
-                <p className="text-sm font-bold tabular-nums">{fmt(b.amount)}</p>
+                <p className="text-sm font-bold tabular-nums">{fmtMoney(b.amount, lang)}</p>
               </button>
             ))}
           </div>

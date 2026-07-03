@@ -70,12 +70,12 @@ function SavingsDetail() {
             </span>
           </div>
           <p className="relative mt-6 text-xs text-foreground/80">{t("locked")}</p>
-          <p className="relative mt-1 text-4xl font-extrabold tracking-tight">{fmt(savingsBalance)}</p>
+          <p className="relative mt-1 text-4xl font-extrabold tracking-tight">{fmtMoney(savingsBalance, lang)}</p>
 
           <div className="relative mt-5">
             <div className="flex items-center justify-between text-[11px]">
               <span>{t("savingsProgress")}</span>
-              <span>{pct}% / {fmt(p.goal)}</span>
+              <span>{pct}% / {fmtMoney(p.goal, lang)}</span>
             </div>
             <div className="mt-1.5 h-2.5 overflow-hidden rounded-full bg-black/30">
               <div className="h-full rounded-full bg-gradient-gold shadow-glow-gold" style={{ width: `${pct}%` }} />
@@ -118,7 +118,7 @@ function SavingsDetail() {
                 <p className="text-[11px] text-muted-foreground">{h.when}</p>
               </div>
               <p className={`text-sm font-semibold tabular-nums ${h.amount ? "text-[var(--success)]" : "text-muted-foreground"}`}>
-                {h.amount ? `+${fmt(h.amount)}` : "—"}
+                {h.amount ? `+${fmtMoney(h.amount, lang)}` : "—"}
               </p>
             </div>
           ))}

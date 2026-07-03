@@ -35,12 +35,12 @@ function InsightsPage() {
         <div className="glass rounded-2xl p-4">
           <div className="flex items-center gap-1 text-[var(--success)] text-[11px]"><TrendingUp className="size-3" /> +18%</div>
           <p className="mt-2 text-[11px] text-muted-foreground">{t("savedThisMonth")}</p>
-          <p className="mt-1 text-xl font-bold">{fmt(p.savedThisMonth)}</p>
+          <p className="mt-1 text-xl font-bold">{fmtMoney(p.savedThisMonth, lang)}</p>
         </div>
         <div className="glass rounded-2xl p-4">
           <div className="flex items-center gap-1 text-[var(--warning)] text-[11px]"><TrendingDown className="size-3" /> -6%</div>
           <p className="mt-2 text-[11px] text-muted-foreground">{t("spendingThisMonth")}</p>
-          <p className="mt-1 text-xl font-bold">{fmt(p.spent)}</p>
+          <p className="mt-1 text-xl font-bold">{fmtMoney(p.spent, lang)}</p>
         </div>
       </section>
 

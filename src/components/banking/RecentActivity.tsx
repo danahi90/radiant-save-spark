@@ -22,7 +22,7 @@ export function RecentActivity({ limit = 5 }: { limit?: number }) {
             </div>
             <p className={`text-sm font-semibold tabular-nums ${x.amount > 0 ? "text-[var(--success)]" : "text-foreground"}`}>
               {x.amount > 0 ? "+" : "−"}
-              {fmt(x.amount)}
+              {fmtMoney(x.amount, lang)}
             </p>
           </div>
         ))}
