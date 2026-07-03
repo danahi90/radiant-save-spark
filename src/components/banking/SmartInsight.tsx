@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Sparkles, ArrowRight, Check } from "lucide-react";
 import { useApp } from "@/lib/app-state";
-import { getPersona } from "@/lib/mock";
+import { getPersona, fmtMoney } from "@/lib/mock";
 
 const CATEGORY_META: Record<string, { ar: string; en: string; icon: string }> = {
   food: { ar: "القهوة والمشروبات", en: "Coffee & Drinks", icon: "☕" },
@@ -13,7 +13,7 @@ const CATEGORY_META: Record<string, { ar: string; en: string; icon: string }> = 
 };
 
 export function SmartInsight() {
-  const { lang, persona, notify, fmt } = useApp();
+  const { lang, persona, notify } = useApp();
   const p = getPersona(persona);
   const [accepted, setAccepted] = useState(false);
 
@@ -36,8 +36,8 @@ export function SmartInsight() {
       title: lang === "ar" ? "تم تفعيل التحويل التلقائي ✅" : "Auto transfer enabled ✅",
       body:
         lang === "ar"
-          ? `سيتم تحويل ${fmt(insight.amount)} شهرياً إلى بطاقتك الادخارية.`
-          : `${fmt(insight.amount)} will move to your Savings Card monthly.`,
+          ? `سيتم تحويل ${fmtMoney(insight.amount, lang)} شهرياً إلى بطاقتك الادخارية.`
+          : `${fmtMoney(insight.amount, lang)} will move to your Savings Card monthly.`,
     });
   };
 
@@ -101,12 +101,12 @@ export function SmartInsight() {
           <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
             {lang === "ar" ? (
               <>
-                نوصي بتحويل <Accent>{fmt(insight.amount)}</Accent> تلقائياً إلى بطاقتك
+                نوصي بتحويل <Accent>{fmtMoney(insight.amount, lang)}</Accent> تلقائياً إلى بطاقتك
                 الادخارية لتبقى على المسار.
               </>
             ) : (
               <>
-                We recommend auto-transferring <Accent>{fmt(insight.amount)}</Accent> to
+                We recommend auto-transferring <Accent>{fmtMoney(insight.amount, lang)}</Accent> to
                 your Savings Card to stay on track.
               </>
             )}

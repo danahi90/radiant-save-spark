@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/layout/AppShell";
 import { TopBar } from "@/components/layout/TopBar";
 import { useApp } from "@/lib/app-state";
-import { bills, getPersona } from "@/lib/mock";
+import { bills, getPersona, fmtMoney } from "@/lib/mock";
 import { Receipt, ChevronLeft, ChevronRight, ArrowLeftRight, Plus } from "lucide-react";
 
 export const Route = createFileRoute("/payments")({
@@ -11,7 +11,7 @@ export const Route = createFileRoute("/payments")({
 });
 
 function PaymentsPage() {
-  const { t, lang, persona, fmt } = useApp();
+  const { t, lang, persona } = useApp();
   const p = getPersona(persona);
   const Chev = lang === "ar" ? ChevronLeft : ChevronRight;
   return (
@@ -41,7 +41,7 @@ function PaymentsPage() {
               <div className="flex size-10 items-center justify-center rounded-xl bg-[var(--surface-elevated)] text-lg">{b.icon}</div>
               <div className="flex-1">
                 <p className="text-sm font-medium">{b[lang]}</p>
-                <p className="text-[11px] text-muted-foreground">{fmt(b.amount)}</p>
+                <p className="text-[11px] text-muted-foreground">{fmtMoney(b.amount, lang)}</p>
               </div>
               <Chev className="size-4 text-muted-foreground" />
             </Link>
@@ -58,11 +58,11 @@ function PaymentsPage() {
           <div className="mt-3 grid grid-cols-2 gap-3">
             <div className="rounded-2xl bg-[var(--surface-elevated)] p-3">
               <p className="text-[11px] text-muted-foreground">{t("spendingThisMonth")}</p>
-              <p className="mt-1 text-lg font-bold">{fmt(p.spent)}</p>
+              <p className="mt-1 text-lg font-bold">{fmtMoney(p.spent, lang)}</p>
             </div>
             <div className="rounded-2xl bg-[var(--surface-elevated)] p-3">
               <p className="text-[11px] text-muted-foreground">{t("savedThisMonth")}</p>
-              <p className="mt-1 text-lg font-bold text-[var(--success)]">{fmt(p.savedThisMonth)}</p>
+              <p className="mt-1 text-lg font-bold text-[var(--success)]">{fmtMoney(p.savedThisMonth, lang)}</p>
             </div>
           </div>
         </div>
