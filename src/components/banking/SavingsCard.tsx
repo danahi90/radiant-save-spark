@@ -1,10 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { Lock, ShieldCheck, Sparkles } from "lucide-react";
 import { useApp } from "@/lib/app-state";
-import { getPersona, fmtMoney } from "@/lib/mock";
+import { getPersona } from "@/lib/mock";
 
 export function SavingsCard() {
-  const { lang, persona, savingsBalance, unlockAt, t } = useApp();
+  const { lang, persona, savingsBalance, unlockAt, t, fmt } = useApp();
   const p = getPersona(persona);
   const pct = Math.min(100, Math.round((savingsBalance / p.goal) * 100));
   const unlocking = unlockAt !== null;

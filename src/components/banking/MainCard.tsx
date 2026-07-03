@@ -1,10 +1,10 @@
 import { Lock, Snowflake, Eye, EyeOff } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useApp } from "@/lib/app-state";
-import { getPersona, fmtMoney } from "@/lib/mock";
+import { getPersona } from "@/lib/mock";
 
 export function MainCard({ compact = false }: { compact?: boolean }) {
-  const { lang, persona, frozen, detailsShown, t } = useApp();
+  const { lang, persona, frozen, detailsShown, t, fmt } = useApp();
   const p = getPersona(persona);
   return (
     <div className={`relative overflow-hidden rounded-3xl p-5 shadow-card bg-gradient-card ring-1 ring-white/5 ${frozen ? "opacity-80" : ""}`}>

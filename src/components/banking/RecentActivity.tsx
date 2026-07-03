@@ -1,8 +1,8 @@
 import { useApp } from "@/lib/app-state";
-import { getPersona, fmtMoney } from "@/lib/mock";
+import { getPersona } from "@/lib/mock";
 
 export function RecentActivity({ limit = 5 }: { limit?: number }) {
-  const { lang, persona, t } = useApp();
+  const { lang, persona, t, fmt } = useApp();
   const p = getPersona(persona);
   return (
     <div className="glass rounded-3xl p-4">

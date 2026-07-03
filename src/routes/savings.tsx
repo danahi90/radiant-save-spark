@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { useApp } from "@/lib/app-state";
-import { getPersona, fmtMoney, unlockHistory } from "@/lib/mock";
+import { getPersona, unlockHistory } from "@/lib/mock";
 import { Lock, ShieldCheck, Sparkles } from "lucide-react";
 import { UnlockProcessing } from "@/components/banking/UnlockProcessing";
 
@@ -29,7 +29,7 @@ function useCountdown(target: number | null) {
 }
 
 function SavingsDetail() {
-  const { lang, persona, savingsBalance, unlockAt, requestUnlock, cancelUnlock, notify, dismiss, t } = useApp();
+  const { lang, persona, savingsBalance, unlockAt, requestUnlock, cancelUnlock, notify, dismiss, t, fmt } = useApp();
   const p = getPersona(persona);
   const pct = Math.min(100, Math.round((savingsBalance / p.goal) * 100));
   const cd = useCountdown(unlockAt);
