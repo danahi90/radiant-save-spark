@@ -28,7 +28,7 @@ export function MainCard({ compact = false }: { compact?: boolean }) {
 
       <div className="relative mt-6">
         <p className="text-[11px] text-muted-foreground">{t("available")}</p>
-        <p className="mt-1 text-3xl font-bold tracking-tight text-foreground">{fmtMoney(p.available, lang)}</p>
+        <p className="mt-1 text-3xl font-bold tracking-tight text-foreground">{fmt(p.available)}</p>
       </div>
 
       {!compact && (
@@ -41,7 +41,7 @@ export function MainCard({ compact = false }: { compact?: boolean }) {
           </div>
           <div className="text-right">
             <p className="text-[10px] uppercase tracking-wider text-muted-foreground">{t("totalBalance")}</p>
-            <p className="mt-1 text-sm font-semibold text-foreground">{fmtMoney(p.total, lang)}</p>
+            <p className="mt-1 text-sm font-semibold text-foreground">{fmt(p.total)}</p>
           </div>
         </div>
       )}

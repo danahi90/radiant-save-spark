@@ -36,7 +36,7 @@ export function SavingsCard() {
       <div className="relative mt-5 flex items-end justify-between">
         <div>
           <p className="text-[11px] text-foreground/70">{t("locked")}</p>
-          <p className="mt-1 text-2xl font-bold text-foreground">{fmtMoney(savingsBalance, lang)}</p>
+          <p className="mt-1 text-2xl font-bold text-foreground">{fmt(savingsBalance)}</p>
         </div>
         <Sparkles className="size-5 text-[var(--gold)] opacity-80" />
       </div>
@@ -44,7 +44,7 @@ export function SavingsCard() {
       <div className="relative mt-4">
         <div className="flex items-center justify-between text-[10px] text-foreground/80">
           <span>{t("savingsProgress")}</span>
-          <span>{pct}% / {fmtMoney(p.goal, lang)}</span>
+          <span>{pct}% / {fmt(p.goal)}</span>
         </div>
         <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-black/30">
           <div

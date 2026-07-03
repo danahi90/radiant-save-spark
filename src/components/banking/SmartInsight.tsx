@@ -36,8 +36,8 @@ export function SmartInsight() {
       title: lang === "ar" ? "تم تفعيل التحويل التلقائي ✅" : "Auto transfer enabled ✅",
       body:
         lang === "ar"
-          ? `سيتم تحويل ${fmtMoney(insight.amount, lang)} شهرياً إلى بطاقتك الادخارية.`
-          : `${fmtMoney(insight.amount, lang)} will move to your Savings Card monthly.`,
+          ? `سيتم تحويل ${fmt(insight.amount)} شهرياً إلى بطاقتك الادخارية.`
+          : `${fmt(insight.amount)} will move to your Savings Card monthly.`,
     });
   };
 
@@ -101,12 +101,12 @@ export function SmartInsight() {
           <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
             {lang === "ar" ? (
               <>
-                نوصي بتحويل <Accent>{fmtMoney(insight.amount, lang)}</Accent> تلقائياً إلى بطاقتك
+                نوصي بتحويل <Accent>{fmt(insight.amount)}</Accent> تلقائياً إلى بطاقتك
                 الادخارية لتبقى على المسار.
               </>
             ) : (
               <>
-                We recommend auto-transferring <Accent>{fmtMoney(insight.amount, lang)}</Accent> to
+                We recommend auto-transferring <Accent>{fmt(insight.amount)}</Accent> to
                 your Savings Card to stay on track.
               </>
             )}
