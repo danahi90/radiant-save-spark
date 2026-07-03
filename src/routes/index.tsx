@@ -7,7 +7,7 @@ import { SavingsCard } from "@/components/banking/SavingsCard";
 import { QuickActions } from "@/components/banking/QuickActions";
 import { RecentActivity } from "@/components/banking/RecentActivity";
 import { useApp } from "@/lib/app-state";
-import { getPersona, fmtMoney } from "@/lib/mock";
+import { getPersona } from "@/lib/mock";
 import { useCountUp } from "@/lib/useCountUp";
 import { TrendingUp } from "lucide-react";
 import { SmartInsight } from "@/components/banking/SmartInsight";
@@ -47,7 +47,7 @@ const containerVariants: Variants = {
 };
 
 function Home() {
-  const { persona, t, lang } = useApp();
+  const { persona, t, lang, fmt } = useApp();
   const p = getPersona(persona);
 
 
@@ -65,15 +65,15 @@ function Home() {
         <motion.section variants={sectionVariants} className="px-5 pt-6">
           <p className="text-xs text-muted-foreground">{t(p.incomeLabel)}</p>
           <p className="mt-1 text-4xl font-extrabold tracking-tight text-gradient-gold tabular-nums">
-            {fmtMoney(Math.round(income), lang)}
+            {fmt(Math.round(income))}
           </p>
           <div className="mt-2 flex items-center gap-3 text-[11px]">
             <span className="inline-flex items-center gap-1 text-[var(--success)] tabular-nums">
-              <TrendingUp className="size-3" /> {fmtMoney(Math.round(saved), lang)} {t("savedThisMonth")}
+              <TrendingUp className="size-3" /> {fmt(Math.round(saved))} {t("savedThisMonth")}
             </span>
             <span className="text-muted-foreground">•</span>
             <span className="text-muted-foreground tabular-nums">
-              {fmtMoney(Math.round(spent), lang)} {t("spendingThisMonth")}
+              {fmt(Math.round(spent))} {t("spendingThisMonth")}
             </span>
           </div>
         </motion.section>

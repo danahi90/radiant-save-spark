@@ -1,8 +1,8 @@
 import { useApp } from "@/lib/app-state";
-import { getPersona, fmtMoney } from "@/lib/mock";
+import { getPersona } from "@/lib/mock";
 
 export function RecentActivity({ limit = 5 }: { limit?: number }) {
-  const { lang, persona, t } = useApp();
+  const { lang, persona, t, fmt } = useApp();
   const p = getPersona(persona);
   return (
     <div className="glass rounded-3xl p-4">
@@ -22,7 +22,7 @@ export function RecentActivity({ limit = 5 }: { limit?: number }) {
             </div>
             <p className={`text-sm font-semibold tabular-nums ${x.amount > 0 ? "text-[var(--success)]" : "text-foreground"}`}>
               {x.amount > 0 ? "+" : "−"}
-              {fmtMoney(x.amount, lang)}
+              {fmt(x.amount)}
             </p>
           </div>
         ))}

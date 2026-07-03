@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { useApp } from "@/lib/app-state";
-import { getPersona, fmtMoney, unlockHistory } from "@/lib/mock";
+import { getPersona, unlockHistory } from "@/lib/mock";
 import { Lock, ShieldCheck, Sparkles } from "lucide-react";
 import { UnlockProcessing } from "@/components/banking/UnlockProcessing";
 
@@ -29,7 +29,7 @@ function useCountdown(target: number | null) {
 }
 
 function SavingsDetail() {
-  const { lang, persona, savingsBalance, unlockAt, requestUnlock, cancelUnlock, notify, dismiss, t } = useApp();
+  const { lang, persona, savingsBalance, unlockAt, requestUnlock, cancelUnlock, notify, dismiss, t, fmt } = useApp();
   const p = getPersona(persona);
   const pct = Math.min(100, Math.round((savingsBalance / p.goal) * 100));
   const cd = useCountdown(unlockAt);
@@ -70,12 +70,12 @@ function SavingsDetail() {
             </span>
           </div>
           <p className="relative mt-6 text-xs text-foreground/80">{t("locked")}</p>
-          <p className="relative mt-1 text-4xl font-extrabold tracking-tight">{fmtMoney(savingsBalance, lang)}</p>
+          <p className="relative mt-1 text-4xl font-extrabold tracking-tight">{fmt(savingsBalance)}</p>
 
           <div className="relative mt-5">
             <div className="flex items-center justify-between text-[11px]">
               <span>{t("savingsProgress")}</span>
-              <span>{pct}% / {fmtMoney(p.goal, lang)}</span>
+              <span>{pct}% / {fmt(p.goal)}</span>
             </div>
             <div className="mt-1.5 h-2.5 overflow-hidden rounded-full bg-black/30">
               <div className="h-full rounded-full bg-gradient-gold shadow-glow-gold" style={{ width: `${pct}%` }} />
@@ -118,7 +118,7 @@ function SavingsDetail() {
                 <p className="text-[11px] text-muted-foreground">{h.when}</p>
               </div>
               <p className={`text-sm font-semibold tabular-nums ${h.amount ? "text-[var(--success)]" : "text-muted-foreground"}`}>
-                {h.amount ? `+${fmtMoney(h.amount, lang)}` : "—"}
+                {h.amount ? `+${fmt(h.amount)}` : "—"}
               </p>
             </div>
           ))}

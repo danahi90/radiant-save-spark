@@ -1,5 +1,8 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { dict, type Lang, type Persona } from "./i18n";
+import { fmtMoney } from "./mock";
+
+const MASK = "••••••••";
 
 type Notification = {
   id: string;
@@ -13,6 +16,7 @@ type State = {
   persona: Persona;
   frozen: boolean;
   detailsShown: boolean;
+  privacy: boolean;
   unlockAt: number | null; // timestamp when savings unlock
   savingsBalance: number;
   notifications: Notification[];
@@ -23,11 +27,13 @@ type Ctx = State & {
   setPersona: (p: Persona) => void;
   toggleFreeze: () => void;
   toggleDetails: () => void;
+  togglePrivacy: () => void;
   requestUnlock: () => void;
   cancelUnlock: () => void;
   notify: (n: Omit<Notification, "id">) => string;
   dismiss: (id: string) => void;
   t: (key: import("./i18n").DictKey) => string;
+  fmt: (n: number) => string;
 };
 
 const AppCtx = createContext<Ctx | null>(null);
@@ -63,6 +69,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setPersona: (p) => setState((s) => ({ ...s, persona: p })),
     toggleFreeze: () => setState((s) => ({ ...s, frozen: !s.frozen })),
     toggleDetails: () => setState((s) => ({ ...s, detailsShown: !s.detailsShown })),
+    togglePrivacy: () => setState((s) => ({ ...s, privacy: !s.privacy })),
+    fmt: (n: number) => (state.privacy ? MASK : fmtMoney(n, state.lang)),
     requestUnlock: () => setState((s) => ({ ...s, unlockAt: Date.now() + 3 * 60 * 60 * 1000 })),
     cancelUnlock: () => setState((s) => ({ ...s, unlockAt: null })),
     notify: (n) => {
@@ -95,6 +103,7 @@ function defaults(): State {
     persona: "student",
     frozen: false,
     detailsShown: false,
+    privacy: true,
     unlockAt: null,
     savingsBalance: 4250,
     notifications: [],

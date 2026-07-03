@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AppShell } from "@/components/layout/AppShell";
 import { TopBar } from "@/components/layout/TopBar";
 import { useApp } from "@/lib/app-state";
-import { getPersona, fmtMoney } from "@/lib/mock";
+import { getPersona } from "@/lib/mock";
 import { dict } from "@/lib/i18n";
 import { TrendingUp, TrendingDown } from "lucide-react";
 
@@ -20,7 +20,7 @@ const flow = [
 ];
 
 function InsightsPage() {
-  const { t, lang, persona } = useApp();
+  const { t, lang, persona, fmt } = useApp();
   const p = getPersona(persona);
   const total = p.categories.reduce((s: number, c: { value: number }) => s + c.value, 0);
   return (
@@ -35,12 +35,12 @@ function InsightsPage() {
         <div className="glass rounded-2xl p-4">
           <div className="flex items-center gap-1 text-[var(--success)] text-[11px]"><TrendingUp className="size-3" /> +18%</div>
           <p className="mt-2 text-[11px] text-muted-foreground">{t("savedThisMonth")}</p>
-          <p className="mt-1 text-xl font-bold">{fmtMoney(p.savedThisMonth, lang)}</p>
+          <p className="mt-1 text-xl font-bold">{fmt(p.savedThisMonth)}</p>
         </div>
         <div className="glass rounded-2xl p-4">
           <div className="flex items-center gap-1 text-[var(--warning)] text-[11px]"><TrendingDown className="size-3" /> -6%</div>
           <p className="mt-2 text-[11px] text-muted-foreground">{t("spendingThisMonth")}</p>
-          <p className="mt-1 text-xl font-bold">{fmtMoney(p.spent, lang)}</p>
+          <p className="mt-1 text-xl font-bold">{fmt(p.spent)}</p>
         </div>
       </section>
 
