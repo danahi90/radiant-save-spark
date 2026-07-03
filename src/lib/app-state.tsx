@@ -103,6 +103,7 @@ function defaults(): State {
     persona: "student",
     frozen: false,
     detailsShown: false,
+    privacy: true,
     unlockAt: null,
     savingsBalance: 4250,
     notifications: [],
