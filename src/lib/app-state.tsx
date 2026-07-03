@@ -69,6 +69,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setPersona: (p) => setState((s) => ({ ...s, persona: p })),
     toggleFreeze: () => setState((s) => ({ ...s, frozen: !s.frozen })),
     toggleDetails: () => setState((s) => ({ ...s, detailsShown: !s.detailsShown })),
+    togglePrivacy: () => setState((s) => ({ ...s, privacy: !s.privacy })),
+    fmt: (n: number) => (state.privacy ? MASK : fmtMoney(n, state.lang)),
     requestUnlock: () => setState((s) => ({ ...s, unlockAt: Date.now() + 3 * 60 * 60 * 1000 })),
     cancelUnlock: () => setState((s) => ({ ...s, unlockAt: null })),
     notify: (n) => {
