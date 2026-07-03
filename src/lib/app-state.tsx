@@ -1,5 +1,8 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { dict, type Lang, type Persona } from "./i18n";
+import { fmtMoney } from "./mock";
+
+const MASK = "••••••••";
 
 type Notification = {
   id: string;
