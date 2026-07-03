@@ -1,4 +1,5 @@
-import { Languages, GraduationCap, Briefcase } from "lucide-react";
+import { Languages, GraduationCap, Briefcase, Eye, EyeOff } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import { useApp } from "@/lib/app-state";
 import { getPersona } from "@/lib/mock";
 
