@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AppShell } from "@/components/layout/AppShell";
 import { TopBar } from "@/components/layout/TopBar";
 import { useApp } from "@/lib/app-state";
-import { getPersona } from "@/lib/mock";
+import { getPersona, fmtMoney } from "@/lib/mock";
 import { dict } from "@/lib/i18n";
 import { TrendingUp, TrendingDown } from "lucide-react";
 
@@ -20,7 +20,7 @@ const flow = [
 ];
 
 function InsightsPage() {
-  const { t, lang, persona, fmt } = useApp();
+  const { t, lang, persona } = useApp();
   const p = getPersona(persona);
   const total = p.categories.reduce((s: number, c: { value: number }) => s + c.value, 0);
   return (

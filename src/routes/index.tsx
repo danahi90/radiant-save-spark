@@ -7,7 +7,7 @@ import { SavingsCard } from "@/components/banking/SavingsCard";
 import { QuickActions } from "@/components/banking/QuickActions";
 import { RecentActivity } from "@/components/banking/RecentActivity";
 import { useApp } from "@/lib/app-state";
-import { getPersona } from "@/lib/mock";
+import { getPersona, fmtMoney } from "@/lib/mock";
 import { useCountUp } from "@/lib/useCountUp";
 import { TrendingUp } from "lucide-react";
 import { SmartInsight } from "@/components/banking/SmartInsight";
@@ -47,7 +47,7 @@ const containerVariants: Variants = {
 };
 
 function Home() {
-  const { persona, t, lang, fmt } = useApp();
+  const { persona, t, lang } = useApp();
   const p = getPersona(persona);
 
 

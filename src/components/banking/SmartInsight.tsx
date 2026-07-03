@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Sparkles, ArrowRight, Check } from "lucide-react";
 import { useApp } from "@/lib/app-state";
-import { getPersona } from "@/lib/mock";
+import { getPersona, fmtMoney } from "@/lib/mock";
 
 const CATEGORY_META: Record<string, { ar: string; en: string; icon: string }> = {
   food: { ar: "القهوة والمشروبات", en: "Coffee & Drinks", icon: "☕" },
@@ -13,7 +13,7 @@ const CATEGORY_META: Record<string, { ar: string; en: string; icon: string }> = 
 };
 
 export function SmartInsight() {
-  const { lang, persona, notify, fmt } = useApp();
+  const { lang, persona, notify } = useApp();
   const p = getPersona(persona);
   const [accepted, setAccepted] = useState(false);
 

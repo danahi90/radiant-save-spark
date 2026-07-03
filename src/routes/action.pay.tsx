@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { ActionFlow, ConfirmBtn } from "@/components/banking/ActionFlow";
 import { useApp } from "@/lib/app-state";
-import { bills } from "@/lib/mock";
+import { bills, fmtMoney } from "@/lib/mock";
 
 export const Route = createFileRoute("/action/pay")({
   head: () => ({ meta: [{ title: "Nawa — Pay" }] }),
@@ -10,7 +10,7 @@ export const Route = createFileRoute("/action/pay")({
 });
 
 function PayPage() {
-  const { t, lang, fmt } = useApp();
+  const { t, lang } = useApp();
   const [sel, setSel] = useState<number | null>(null);
   return (
     <ActionFlow

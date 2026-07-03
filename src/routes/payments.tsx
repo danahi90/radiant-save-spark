@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/layout/AppShell";
 import { TopBar } from "@/components/layout/TopBar";
 import { useApp } from "@/lib/app-state";
-import { bills, getPersona } from "@/lib/mock";
+import { bills, getPersona, fmtMoney } from "@/lib/mock";
 import { Receipt, ChevronLeft, ChevronRight, ArrowLeftRight, Plus } from "lucide-react";
 
 export const Route = createFileRoute("/payments")({
@@ -11,7 +11,7 @@ export const Route = createFileRoute("/payments")({
 });
 
 function PaymentsPage() {
-  const { t, lang, persona, fmt } = useApp();
+  const { t, lang, persona } = useApp();
   const p = getPersona(persona);
   const Chev = lang === "ar" ? ChevronLeft : ChevronRight;
   return (
