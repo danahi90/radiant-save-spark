@@ -4,7 +4,7 @@ import { useApp } from "@/lib/app-state";
 import { getPersona } from "@/lib/mock";
 
 export function TopBar() {
-  const { lang, setLang, persona, setPersona, t } = useApp();
+  const { lang, setLang, persona, setPersona, t, privacy, togglePrivacy } = useApp();
   const p = getPersona(persona);
   return (
     <div className="flex items-center justify-between px-5 pt-5">
@@ -18,6 +18,40 @@ export function TopBar() {
           <p className="text-xs text-muted-foreground">{t("goodMorning")}</p>
           <p className="text-sm font-semibold text-foreground">{p.name[lang]}</p>
         </div>
+        <button
+          onClick={togglePrivacy}
+          aria-label={privacy ? "Show balances" : "Hide balances"}
+          aria-pressed={!privacy}
+          className={`glass tap-scale ms-1 flex size-9 items-center justify-center rounded-full ring-1 transition-all duration-300 ${
+            !privacy
+              ? "ring-[var(--gold)]/50 shadow-glow-gold text-[var(--gold)]"
+              : "ring-transparent text-foreground/80"
+          }`}
+        >
+          <AnimatePresence mode="wait" initial={false}>
+            {privacy ? (
+              <motion.span
+                key="off"
+                initial={{ opacity: 0, rotate: -30, scale: 0.8 }}
+                animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                exit={{ opacity: 0, rotate: 30, scale: 0.8 }}
+                transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <EyeOff className="size-4" />
+              </motion.span>
+            ) : (
+              <motion.span
+                key="on"
+                initial={{ opacity: 0, rotate: 30, scale: 0.8 }}
+                animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                exit={{ opacity: 0, rotate: -30, scale: 0.8 }}
+                transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <Eye className="size-4" />
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </button>
       </div>
       <div className="flex items-center gap-2">
         <button
